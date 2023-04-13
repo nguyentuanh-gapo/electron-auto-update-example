@@ -58,7 +58,7 @@
   ],
   "publish": {
     "provider": "github",
-    "token": "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",
+    "token": "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",
     "repo": "electron-auto-update-example"
   }
 }
