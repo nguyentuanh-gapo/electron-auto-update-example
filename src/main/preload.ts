@@ -2,7 +2,12 @@
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'ipc-example';
+export type Channels =
+  | 'ipc-example'
+  | 'update_available'
+  | 'update_downloaded'
+  | 'download'
+  | 'restart_app';
 
 const electronHandler = {
   ipcRenderer: {
@@ -13,7 +18,6 @@ const electronHandler = {
       const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
         func(...args);
       ipcRenderer.on(channel, subscription);
-
       return () => {
         ipcRenderer.removeListener(channel, subscription);
       };

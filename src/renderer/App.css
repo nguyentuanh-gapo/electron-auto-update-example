@@ -4,7 +4,7 @@
  */
 body {
   position: relative;
-  color: white;
+
   height: 100vh;
   background: linear-gradient(
     200.96deg,
@@ -59,6 +59,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+
 }
 
 .wrapper {
@@ -66,4 +67,5 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 }

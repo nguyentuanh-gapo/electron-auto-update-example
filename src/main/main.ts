@@ -19,6 +19,7 @@ class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
+    autoUpdater.autoDownload = false;
     autoUpdater.checkForUpdatesAndNotify();
   }
 }
@@ -135,3 +136,24 @@ app
     });
   })
   .catch(console.log);
+
+autoUpdater.on('update-available', () => {
+  if (mainWindow) {
+    mainWindow.webContents.send('update_available');
+  }
+});
+
+autoUpdater.on('update-downloaded', () => {
+  if (mainWindow) {
+    mainWindow.webContents.send('update_downloaded');
+  }
+});
+
+ipcMain.on('download', () => {
+  console.log('-------->  download file update');
+  autoUpdater.downloadUpdate();
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
