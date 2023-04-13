@@ -11,11 +11,11 @@ import './App.css';
 function Hello() {
   const [show, setShow] = useState(false);
   const [hasNewVersion, setHasNewVersion] = useState(false);
-  const [downloading, setDownloading] = useState(false);
+  const [downloading, setDownloading] = useState(true);
 
   const handleDowload = () => {
-    window.electron.ipcRenderer.sendMessage('download', []);
     setDownloading(true);
+    window.electron.ipcRenderer.sendMessage('download', []);
   };
 
   const handleRestartAndInstall = () => {
@@ -28,7 +28,6 @@ function Hello() {
   const handleShow = () => setShow(true);
 
   window.electron.ipcRenderer.on('update_available', () => {
-    console.log('-------->  update_available:');
     setHasNewVersion(true);
   });
 
@@ -43,28 +42,38 @@ function Hello() {
         <img width="200" alt="icon" src={icon} />
       </div>
       <h1 style={{ textAlign: 'center' }}>Ahihi</h1>
-      <h1 style={{ textAlign: 'center' }}>Updated</h1>
       <h3 style={{ textAlign: 'center' }}>
         Version: {process.env.APP_VERSION}
       </h3>
       {hasNewVersion ? (
         <Button variant="primary" onClick={handleDowload}>
-          Update
+          Update Now
         </Button>
       ) : null}
-      {downloading ? <ProgressBar animated now={45} /> : null}
+      {downloading ? (
+        <div className="d-flex flex-column w-100 align-items-center">
+          Downloading
+          <ProgressBar
+            animated
+            now={100}
+            style={{ width: '100%', height: 5 }}
+          />
+        </div>
+      ) : null}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{`Woohoo, you're reading this text in a modal!`}</Modal.Body>
+        <Modal.Body>
+          Update Downloaded. It will be installed on restart. Restart now?
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" size="sm" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleRestartAndInstall}>
-            Download
+          <Button variant="primary" size="sm" onClick={handleRestartAndInstall}>
+            Restart and install
           </Button>
         </Modal.Footer>
       </Modal>
