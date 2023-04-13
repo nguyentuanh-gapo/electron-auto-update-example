@@ -1,5 +1,5 @@
 {
-  "productName": "ElectronReact",
+  "productName": "DemoUpdate",
   "appId": "demo.electron-auto-update",
   "asar": true,
   "asarUnpack": "**\\*.{node,dll}",
@@ -58,7 +58,7 @@
   ],
   "publish": {
     "provider": "github",
-    "token": "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",
+    "token": "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",
     "repo": "electron-auto-update-example"
   }
 }
