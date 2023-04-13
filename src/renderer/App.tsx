@@ -11,7 +11,7 @@ import './App.css';
 function Hello() {
   const [show, setShow] = useState(false);
   const [hasNewVersion, setHasNewVersion] = useState(false);
-  const [downloading, setDownloading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
 
   const handleDowload = () => {
     setDownloading(true);
